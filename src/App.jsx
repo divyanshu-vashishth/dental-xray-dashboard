@@ -10,8 +10,8 @@ import Sidebar from './components/Sidebar';
 export default function App() {
   const elementRef = useRef(null);
   const [currentTool, setCurrentTool] = useState('Length');
-  const annotationBackupRef = useRef({});
-  const [annotationsVisible, setAnnotationsVisible] = useState(true);
+  // const annotationBackupRef = useRef({});
+  // const [annotationsVisible, setAnnotationsVisible] = useState(true);
   useEffect(() => {
     cornerstoneTools.external.cornerstone = cornerstone;
     cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
@@ -68,6 +68,9 @@ export default function App() {
       case 'roi':
         cornerstoneTools.setToolActive('FreehandRoi', { mouseButtonMask: 1 });
         break;
+      case 'pan':
+        cornerstoneTools.setToolActive('Pan', { mouseButtonMask: 1 });
+        break;
       case 'zoom':
         cornerstoneTools.setToolActive('Zoom', { mouseButtonMask: 1 });
         break;
@@ -101,27 +104,7 @@ export default function App() {
         link.click();
         cornerstoneTools.setToolActive('Save', { mouseButtonMask: 1 });
         break; } 
-        case 'toggleAnnotations': {
-          const toolNames = ['FreehandRoi', 'Length'];
-    
-          if (annotationsVisible) {
-            annotationBackupRef.current = {};
-            toolNames.forEach((toolName) => {
-              const toolState = cornerstoneTools.getToolState(element, toolName);
-              annotationBackupRef.current[toolName] = JSON.parse(JSON.stringify(toolState));
-              cornerstoneTools.clearToolState(element, toolName);
-            });
-            cornerstone.updateImage(element); 
-          } else {
-            Object.entries(annotationBackupRef.current).forEach(([toolName, stateData]) => {
-              cornerstoneTools.addToolState(element, toolName, stateData);
-            });
-            cornerstone.updateImage(element);
-          }
-    
-          setAnnotationsVisible(!annotationsVisible);
-          break;
-        }
+      
       default:
         break;
     }

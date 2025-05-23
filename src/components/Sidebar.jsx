@@ -21,6 +21,11 @@ export default function Sidebar({ onFileSelect, currentTool, setCurrentTool, onA
         onClick={() => { setCurrentTool('Length'); onAction('length'); }}
       />
       <ToolButton
+        label="Pan"
+        active={currentTool === 'Pan'}
+        onClick={() => { setCurrentTool('Pan'); onAction('pan'); }}
+      />
+      <ToolButton
         label="Zoom"
         active={currentTool === 'Zoom'}
         onClick={() => { setCurrentTool('Zoom'); onAction('zoom'); }}
@@ -51,10 +56,7 @@ export default function Sidebar({ onFileSelect, currentTool, setCurrentTool, onA
         label="Save"
         onClick={() => onAction('save')}
       />
-      <ToolButton
-        label="Toggle Annotations"
-        onClick={() => onAction('toggleAnnotations')}
-      />
+     
       </div>
     </aside>
   );
