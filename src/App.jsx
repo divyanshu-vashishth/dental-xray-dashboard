@@ -11,20 +11,22 @@ export default function App() {
   const elementRef = useRef(null);
   const [currentTool, setCurrentTool] = useState('Length');
   // const annotationBackupRef = useRef({});
-  // const [annotationsVisible, setAnnotationsVisible] = useState(true);
+  const [annotationsVisible, setAnnotationsVisible] = useState(true);
+  
   useEffect(() => {
     cornerstoneTools.external.cornerstone = cornerstone;
     cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
     cornerstoneTools.external.Hammer = Hammer;
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
+    cornerstoneTools.init();
 
 
     if (elementRef.current) {
       cornerstone.enable(elementRef.current);
     }
 
-    cornerstoneTools.init();
+
     
     cornerstoneTools.addTool(cornerstoneTools.LengthTool);
     cornerstoneTools.addTool(cornerstoneTools.PanTool);
@@ -104,7 +106,23 @@ export default function App() {
         link.click();
         cornerstoneTools.setToolActive('Save', { mouseButtonMask: 1 });
         break; } 
-      
+      case 'annotations':
+        { const enabledElements = cornerstone.getEnabledElements();
+        if (!enabledElements.length) return;
+        const element = enabledElements[0].element;
+    
+        const toolTypes = ['Length', 'FreehandRoi'];
+        toolTypes.forEach(toolType => {
+          const toolState = cornerstoneTools.getToolState(element, toolType);
+          if (!toolState) return;
+          toolState.data.forEach(data => {
+            data.visible = !annotationsVisible;
+          });
+        });
+    
+        cornerstone.updateImage(element);
+        setAnnotationsVisible(!annotationsVisible);
+        break; }
       default:
         break;
     }

@@ -56,7 +56,10 @@ export default function Sidebar({ onFileSelect, currentTool, setCurrentTool, onA
         label="Save"
         onClick={() => onAction('save')}
       />
-     
+     <ToolButton
+        label="Annotations"
+        onClick={() => onAction('annotations')}
+      />
       </div>
     </aside>
   );

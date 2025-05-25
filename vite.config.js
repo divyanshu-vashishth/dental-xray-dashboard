@@ -9,6 +9,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+        // "@cornerstone/core": "cornerstone-core/dist/cornerstone-core.min.js",
+      // "cornerstone-tools": "cornerstone-tools/dist/cornerstoneTools.min.js"
     },
   },
   optimizeDeps: {
