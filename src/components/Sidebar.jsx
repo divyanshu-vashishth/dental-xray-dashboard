@@ -4,7 +4,7 @@ import ToolButton from './ToolButton';
 export default function Sidebar({ onFileSelect, currentTool, setCurrentTool, onAction }) {
   return (
     <aside className="w-60 p-4 bg-gray-50 border-r">
-      <h1>File Upload </h1>
+      <h1>Upload any .dcm file</h1>
       <div className="mb-4">
         <input
           type="file"

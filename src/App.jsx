@@ -19,7 +19,7 @@ export default function App() {
     cornerstoneTools.external.Hammer = Hammer;
     cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
     cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
-    cornerstoneTools.init();
+    cornerstoneTools.init({ showSVGCursors: true });
 
 
     if (elementRef.current) {
